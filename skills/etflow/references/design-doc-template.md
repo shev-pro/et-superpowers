@@ -1,7 +1,7 @@
 # Design Document — [Feature Name]
 
 **Date:** YYYY-MM-DD
-**Author:** [Name]
+**Author:** [user's name — do not include the AI name]
 **Status:** Draft | In Review | Approved
 **Service:** [service/repo name]
 **References:**
