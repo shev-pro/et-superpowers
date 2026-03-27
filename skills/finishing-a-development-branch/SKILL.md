@@ -59,7 +59,7 @@ Or ask: "This branch split from main - is that correct?"
 
 ### Step 4: Present Options
 
-Present exactly these 4 options:
+Present exactly these 5 options:
 
 ```
 Implementation complete. What would you like to do?
@@ -68,6 +68,7 @@ Implementation complete. What would you like to do?
 2. Push and create a Pull Request
 3. Keep the branch as-is (I'll handle it later)
 4. Discard this work
+5. Generate a commit message only (I'll commit myself)
 
 Which option?
 ```
@@ -122,6 +123,51 @@ Report: "Keeping branch <name>. Worktree preserved at <path>."
 
 **Don't cleanup worktree.**
 
+#### Option 5: Generate Commit Message Only
+
+Compose a conventional commit message without executing any git command. The user will commit, push, and merge on their own.
+
+**Gather context:**
+```bash
+# What changed
+git diff <base-branch>...HEAD --stat
+git log <base-branch>...HEAD --oneline
+```
+
+Read the plan file in `docs/plans/` for this feature (if it exists) to extract intent and scope.
+
+**Output format (conventional commits / git-flow style):**
+```
+<type>(<scope>): <short imperative description, ≤72 chars>
+
+<body: what was done and why, wrapping at 72 chars.
+  Reference the plan where useful.>
+
+<footer: breaking changes (BREAKING CHANGE: …) or issue refs (Closes #…)>
+```
+
+Common types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`.
+
+**Present the message in a fenced code block** so the user can copy it cleanly:
+
+````
+```
+feat(auth): add OAuth2 login flow
+
+Implements the Google OAuth2 provider as described in the plan.
+Replaces the previous username/password-only flow to meet the
+new security requirements from the Q1 spec.
+
+Closes #42
+```
+````
+
+**Don't cleanup worktree.** Don't archive the plan (the user hasn't committed yet).
+
+Report: "Commit message ready. Branch <name> and worktree preserved."
+
+---
+
 #### Option 4: Discard
 
 **Confirm first:**
@@ -168,6 +214,7 @@ git worktree remove <worktree-path>
 | 2. Create PR | - | ✓ | ✓ | - |
 | 3. Keep as-is | - | - | ✓ | - |
 | 4. Discard | - | - | - | ✓ (force) |
+| 5. Commit message only | - | - | ✓ | - |
 
 ## Common Mistakes
 
@@ -197,7 +244,7 @@ git worktree remove <worktree-path>
 
 **Always:**
 - Verify tests before offering options
-- Present exactly 4 options
+- Present exactly 5 options
 - Get typed confirmation for Option 4
 - Clean up worktree for Options 1 & 4 only
 
