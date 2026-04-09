@@ -24,13 +24,13 @@ There's a bunch more to it, but that's the core of the system. And because the s
 In Claude Code, register the marketplace first:
 
 ```bash
-/plugin marketplace add shev-pro/et-superpowers-marketplace
+/plugin marketplace add shev-pro/et-superpowers
 ```
 
 Then install:
 
 ```bash
-/plugin install superpowers@superpowers-marketplace
+/plugin install superpowers@superpowers
 ```
 
 ### Codex
